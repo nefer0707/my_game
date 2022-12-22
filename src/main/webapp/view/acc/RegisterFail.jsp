@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ç»å¥</title>
+<title>註冊失敗</title>
 </head>
 <body>
 <div>

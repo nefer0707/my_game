@@ -1,4 +1,4 @@
-package controler;
+package model;
 
 import java.sql.Connection;
 

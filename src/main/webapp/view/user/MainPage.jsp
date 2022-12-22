@@ -37,14 +37,14 @@
 		</div>
 		<div style="width: 300px; border: 2px solid">
 			數值
-			<p>角色名稱：${mychar.char_Name}
-			<p>職業名稱：${mychar.job_ID}
+			<p>角色名稱：${mychar.char_name}
+			<p>職業名稱：${mychar.job_id}
 			<p>等級：${mychar_q.lv}
-			<p>職業等級：${mychar_q.jobLv}
-			<p>HP：${mychar_q.hp}/${mychar_q.maxHp}
-			<p>MP：${mychar_q.mp}/${mychar_q.maxMp}
+			<p>職業等級：${mychar_q.job_lv}
+			<p>HP：${mychar_q.hp}/${mychar_q.max_hp}
+			<p>MP：${mychar_q.mp}/${mychar_q.max_mp}
 			<p>經驗值：${mychar_q.exp}
-			<p>職業經驗值：${mychar_q.jobExp}
+			<p>職業經驗值：${mychar_q.job_exp}
 			<p>持有金錢：${mychar.money}
 			<p>
 		</div>

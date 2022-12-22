@@ -1,4 +1,4 @@
-package controler.user.u_choosechars;
+package controler.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,19 +13,20 @@ import model.service.Chars;
 public class ChooseChar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		int char_id =Integer.parseInt(request.getParameter("char_id"));
+		int char_id = Integer.parseInt(request.getParameter("char_id"));
 		session.setAttribute("char_id", char_id);
+		Chars charsfun = new Chars();
 		try {
-			request.setAttribute("mychar", new Chars().select_CharsBycharID(char_id));
-			request.setAttribute("mychar_q", new Chars().selectChar_qBycharid(char_id));
-			request.getRequestDispatcher("/MyGame/view/user/u_mainpage/MainPage.jsp").forward(request, response);
+			request.setAttribute("mychar", charsfun.select_CharsBycharID(char_id));
+			request.setAttribute("mychar_q", charsfun.selectChar_qBycharid(char_id));
+			request.getRequestDispatcher("/view/user/MainPage.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF">
-<title>Insert title here</title>
+<title>註冊</title>
 </head>
 <body>
 <div>

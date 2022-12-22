@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controler.MyConnection;
 import model.bean.chars.CharsBean;
 public class CharsDAO {
 	public Connection con ;
@@ -35,7 +34,25 @@ public class CharsDAO {
 		}
 		return mychar;
 	}
-
+	public CharsBean selectByuid(int uid) throws Exception {
+		String sql = "select * from [MyGame].[dbo].[chars] where uid = ?";
+		CharsBean mychar = null;
+		try (PreparedStatement ps = con.prepareStatement(sql);) {
+			ps.setObject(1, uid);
+			try (ResultSet rs = ps.executeQuery();) {
+				if (rs.next()) {
+					uid = rs.getInt("uid");
+					int char_id = rs.getInt("char_id");
+					String char_name = rs.getString("char_name");
+					String img = rs.getString("img");
+					int job_id = rs.getInt("job_id");
+					int money = rs.getInt("money");
+					mychar = new CharsBean(uid, char_id, char_name, img, job_id, money);
+				}
+			}
+		}
+		return mychar;
+	}
 	public List<CharsBean> selectAllbyuid(int uid) throws Exception {
 		String sql = "select * from [MyGame].[dbo].[chars] where uid = ?";
 		List<CharsBean> mychars = new ArrayList<CharsBean>();
@@ -77,12 +94,19 @@ public class CharsDAO {
 		}
 	}
 
-	public void updateChars(int job_id,int money,int char_id) throws SQLException {
-		String sql = "UPDATE [MyGame].[dbo].[account] SET [job_id] = ?,[money] = ? WHERE char_id = ?";
+	public void updateChars_job_id(int job_id,int char_id) throws SQLException {
+		String sql = "UPDATE [MyGame].[dbo].[account] SET [job_id] = ? WHERE char_id = ?";
 		try (PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setInt(1, job_id);
-			ps.setInt(2, money);
-			ps.setInt(3, char_id);
+			ps.setInt(2, char_id);
+			ps.executeUpdate();
+		}
+	}
+	public void updateChars_money(int money,int char_id) throws SQLException {
+		String sql = "UPDATE [MyGame].[dbo].[account] SET [money] = ? WHERE char_id = ?";
+		try (PreparedStatement ps = con.prepareStatement(sql);) {
+			ps.setInt(1, money);
+			ps.setInt(2, char_id);
 			ps.executeUpdate();
 		}
 	}

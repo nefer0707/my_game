@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>休息頁面</title>
+</head>
+<body>
+	<div>
+		<div>${text}</div>
+		<div>
+			<table>
+				<tr>
+					<td>HP
+					<td>${mychar_q.hp}/${mychar_q.max_hp}
+				<tr>
+					<td>MP
+					<td>${mychar_q.mp}/${mychar_q.max_mp}
+				<tr>
+					<td>Lv
+					<td>${mychar_q.lv}
+				<tr>
+					<td>JobLv
+					<td>${mychar_q.job_lv}
+				<tr>
+					<td>Exp
+					<td>${mychar_q.exp}
+				<tr>
+					<td>JobExp
+					<td>${mychar_q.job_exp}
+				<tr>
+					<td>力量
+					<td>${mychar_q.str}
+				<tr>
+					<td>智力
+					<td>${mychar_q.inte}
+				<tr>
+					<td>敏捷
+					<td>${mychar_q.agi}
+				<tr>
+					<td>靈巧
+					<td>${mychar_q.dex}
+				<tr>
+					<td>幸運
+					<td>${mychar_q.luk}
+				<tr>
+					<td>體力
+					<td>${mychar_q.vit}
+				<tr>
+					<td>金錢
+					<td>${mychar.money}
+			</table>
+			<form method="post" action="/MyGame/Backhome"><input type="submit" value="回主頁面"></form>
+		</div>
+	</div>
+</body>
+</html>

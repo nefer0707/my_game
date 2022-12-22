@@ -1,10 +1,8 @@
 package model.service;
 
 import java.sql.Connection;
-
 import javax.management.RuntimeErrorException;
-
-import controler.MyConnection;
+import model.MyConnection;
 import model.bean.community.AccountBean;
 import model.dao.community.AccountDAO;
 
@@ -43,18 +41,36 @@ public class Acc {
 		if (acc == null) {
 			flag1 = true;
 		}
-		if(account.length()>0) {
+		if (account.length() > 0) {
 			flag2 = true;
 		}
-		if(password.length()>0) {
+		if (password.length() > 0) {
 			flag3 = true;
 		}
-		if(flag1&&flag2&&flag3) {
+		if (flag1 && flag2 && flag3) {
 			dao.insertAccount(account, password);
-		}else {
+		} else {
 			throw new RuntimeErrorException(null);
 		}
 		con.close();
+	}
+
+	public boolean isUser(String account, String password) throws Exception {
+		boolean flag = false;
+		AccountBean acc = login_SelectAccount(account, password);
+		if (acc != null && acc.getLv() == 1) {
+			flag =true;	
+		}
+		return flag;
+	}
+
+	public boolean isManager(String account, String password) throws Exception {
+		boolean flag = false;
+		AccountBean acc = login_SelectAccount(account, password);
+		if (acc != null && acc.getLv() == 2) {
+			flag =true;	
+		}
+		return flag;
 	}
 
 }
