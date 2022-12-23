@@ -11,11 +11,8 @@ import javax.servlet.http.HttpSession;
 import model.service.Chars;
 import model.service.Item;
 
-/**
- * Servlet implementation class Useitem
- */
-@WebServlet("/Useitem")
-public class Useitem extends HttpServlet {
+@WebServlet("/Myquality")
+public class Myquality extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,9 +21,7 @@ public class Useitem extends HttpServlet {
 		int char_id = (int) session.getAttribute("char_id");
 		Item itemfun = new Item();
 		Chars charfun = new Chars();
-		int item_id = Integer.parseInt(request.getParameter("item_id"));
 		try {
-			itemfun.use_f(item_id, char_id);
 			request.setAttribute("myitems", itemfun.select_item_bag_all(char_id));
 			request.setAttribute("myequipments", itemfun.select_equipment_all(char_id));
 			request.setAttribute("mychar", charfun.select_CharsBycharID(char_id));

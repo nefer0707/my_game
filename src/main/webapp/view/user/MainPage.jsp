@@ -5,59 +5,117 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>主頁面</title>
 </head>
 <body>
-	<div>
-		<div style="width: 300px; border: 2px solid">
-			<div>
-				頭像<p>
-				<img src="${mychar.img}"  width="200" height="200">
-				<p>
+	<div class="container">
+		<div class="row border  bg-success p-2 text-striped bg-opacity-10">
+			<div class="col-5 border offset-md-2">
+				<div class="row">
+					<table class="table table table-success table-striped">
+						<tr>
+							<td>角色名稱：
+							<td>${mychar.char_name}
+						<tr>
+							<td>職業名稱：
+							<td>${mychar.job_id}
+						<tr>
+							<td>等級：
+							<td>${mychar_q.lv}
+						<tr>
+							<td>職業等級：
+							<td>${mychar_q.job_lv}
+						<tr>
+							<td>HP：
+							<td>${mychar_q.hp}/${mychar_q.max_hp}
+						<tr>
+							<td>MP：
+							<td>${mychar_q.mp}/${mychar_q.max_mp}
+						<tr>
+							<td>經驗值：
+							<td>${mychar_q.exp}
+						<tr>
+							<td>職業經驗值：
+							<td>${mychar_q.job_exp}
+						<tr>
+							<td>持有金錢：
+							<td>${mychar.money}
+					</table>
+				</div>
+				<div class="row">
+					<table class="table table table-success table-striped">
+						<tr>
+							<td>能力
+							<td>數值
+						<tr>
+							<td>力量：
+							<td>${mychar_q.str}
+						<tr>
+							<td>智力:
+							<td>${mychar_q.inte}
+						<tr>
+							<td>靈巧：
+							<td>${mychar_q.dex}
+						<tr>
+							<td>敏捷：
+							<td>${mychar_q.agi}
+						<tr>
+							<td>幸運：
+							<td>${mychar_q.luk}
+						<tr>
+							<td>體力：
+							<td>${mychar_q.vit}
+						<tr>
+							<td>剩餘數值點：
+							<td>${mychar_q.points}
+					</table>
+				</div>
+
+
 			</div>
-			<div>
-				選單
-				<p>
-				<ul>
-					<li><form method="post" action="/MyGame/Battle">
-							<select name="battleMap">
-								<option>選擇戰鬥地圖</option>
-								<option>新手村</option>
-								<option>中階地圖</option>
-								<option>高階地圖</option>
-							</select> <input type="submit" value="戰鬥">
-						</form>
-					<li><a href=""><input type="button" value="職業與技能"></a>
-					<li><a href=""><input type="button" value="詳細素質"></a>
-					<li><form method="post" action="/MyGame/Bag"><input type="submit" value="背包"></form>
-					<li><form method="post" action="/MyGame/Rest"><input type="submit" value="休息"></form>
-				</ul>
+			<div class="col-3 offset-md-1 mt-5 me-5">
+				<div class="row border border-5 mx-auto">
+					<img src="${mychar.img}" width="200" height="200">
+				</div>
+				<div class="row mt-5 mx-auto">
+					<ul class="list-inline">
+						<li>選單
+						<li><form method="post" action="/MyGame/Battle">
+								<select name="battleMap">
+									<option>選擇戰鬥地圖</option>
+									<option>新手村</option>
+									<option>中階地圖</option>
+									<option>高階地圖</option>
+								</select> <input type="submit" value="戰鬥"
+									class="btn btn-outline-secondary">
+							</form>
+						<li class="mt-3"><a href=""><input type="button" value="職業與技能"
+								class="btn btn-outline-secondary"></a>
+						<li class="mt-2"><form method="post" action="/MyGame/Myquality"><input type="submit" value="詳細素質"
+								class="btn btn-outline-secondary"></form>
+						<li class="mt-2"><form method="post" action="/MyGame/Bag">
+								<input type="submit" value="背包"
+									class="btn btn-outline-secondary">
+							</form>
+						<li class="mt-2"><form method="post" action="/MyGame/Rest">
+								<input type="submit" value="休息"
+									class="btn btn-outline-secondary">
+							</form>
+					</ul>
+				</div>
 			</div>
-		</div>
-		<div style="width: 300px; border: 2px solid">
-			數值
-			<p>角色名稱：${mychar.char_name}
-			<p>職業名稱：${mychar.job_id}
-			<p>等級：${mychar_q.lv}
-			<p>職業等級：${mychar_q.job_lv}
-			<p>HP：${mychar_q.hp}/${mychar_q.max_hp}
-			<p>MP：${mychar_q.mp}/${mychar_q.max_mp}
-			<p>經驗值：${mychar_q.exp}
-			<p>職業經驗值：${mychar_q.job_exp}
-			<p>持有金錢：${mychar.money}
-			<p>
-		</div>
-		<div style="width: 300px; border: 2px solid">
-			能力
-			<p>力量：${mychar_q.str}
-			<p>智力:${mychar_q.inte}
-			<p>靈巧：${mychar_q.dex}
-			<p>敏捷：${mychar_q.agi}
-			<p>幸運：${mychar_q.luk}
-			<p>體力：${mychar_q.vit}
-			<p>剩餘素質點：${mychar_q.points}
-			<p>
+
+
 		</div>
 	</div>
 </body>

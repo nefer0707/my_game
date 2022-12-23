@@ -9,11 +9,11 @@
 </head>
 <body>
 <div>
-<form method="post" action="/MyGame/InsertChar">
+<form method="POST" action="/MyGame/InsertChar" enctype="multipart/form-data">
 	角色名稱：<input type="text" name="char_name"><p>
-	角色圖像：<input type="file" name="img"><p>
+	角色圖像：<input type="file" name="img" ><p>
 	<input type="submit" value="創建角色">
 </form>
-</div>
+</div>	
 </body>
 </html>

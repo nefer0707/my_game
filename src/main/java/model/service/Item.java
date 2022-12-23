@@ -187,7 +187,11 @@ public class Item {
 			}
 		}
 	}
-
+	public void use_f(int item_id,int char_id) throws Exception {
+		use_supplies(item_id, char_id);
+		use_armor(item_id, char_id);
+		use_arms(item_id, char_id);
+	}
 	public void use_armor(int item_id, int char_id) throws Exception {
 		if (is_armor(item_id)) {
 			Item_BagBean item = select_item_bag(char_id, item_id);
@@ -239,6 +243,9 @@ public class Item {
 		}
 		if (item.getAdd_exp() != 0) {
 			int exp = mychar_q.getExp() - item.getAdd_exp();
+			if(exp <0) {
+				exp=0;
+			}
 			charfun.update_Char_q_exp(char_id, exp);
 		}
 		if (item.getAdd_hp() != 0) {
@@ -251,6 +258,9 @@ public class Item {
 		}
 		if (item.getAdd_job_exp() != 0) {
 			int job_exp = mychar_q.getJob_exp() - item.getAdd_job_exp();
+			if(job_exp <0) {
+				job_exp=0;
+			}
 			charfun.update_Char_q_job_exp(char_id, job_exp);
 		}
 		if (item.getAdd_luk() != 0) {
@@ -270,7 +280,7 @@ public class Item {
 			charfun.update_char_money(char_id, money);
 		}
 		if (item.getAdd_mp() != 0) {
-			int mp = mychar_q.getMp() - item.getAdd_max_mp();
+			int mp = mychar_q.getMp() - item.getAdd_mp();
 			charfun.update_Char_q_mp(char_id, mp);
 		}
 		if (item.getAdd_points() != 0) {

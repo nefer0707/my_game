@@ -103,7 +103,7 @@ public class CharsDAO {
 		}
 	}
 	public void updateChars_money(int money,int char_id) throws SQLException {
-		String sql = "UPDATE [MyGame].[dbo].[account] SET [money] = ? WHERE char_id = ?";
+		String sql = "UPDATE [MyGame].[dbo].[chars] SET [money] = ? WHERE char_id = ?";
 		try (PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setInt(1, money);
 			ps.setInt(2, char_id);
