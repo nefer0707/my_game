@@ -85,7 +85,7 @@
 			</div>
 			<div class="col-3 offset-md-1 mt-5 me-5">
 				<div class="row border border-5 mx-auto">
-					<img src="${mychar.img}" width="200" height="200">
+					<img src="${mychar.img}">
 				</div>
 				<div class="row mt-5 mx-auto">
 					<ul class="list-inline">
@@ -99,8 +99,8 @@
 								</select> <input type="submit" value="戰鬥"
 									class="btn btn-outline-secondary">
 							</form>
-						<li class="mt-3"><a href=""><input type="button" value="職業與技能"
-								class="btn btn-outline-secondary"></a>
+						<li class="mt-3"><form method="post" action="/MyGame/MySkillAndJob"><input type="submit" value="職業與技能"
+								class="btn btn-outline-secondary"></form>
 						<li class="mt-2"><form method="post" action="/MyGame/Myquality"><input type="submit" value="詳細素質"
 								class="btn btn-outline-secondary"></form>
 						<li class="mt-2"><form method="post" action="/MyGame/Bag">

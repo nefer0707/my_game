@@ -23,9 +23,9 @@ public class ItemDAO {
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
 			item_id = rs.getInt("item_id");
-			String item_name = rs.getString("item_name");
+			String item_name = rs.getString("item_name").trim();
 			int item_type_id = rs.getInt("item_type_id");
-			String caption = rs.getString("caption");
+			String caption = rs.getString("caption").trim();
 			int add_hp = rs.getInt("add_hp");
 			int add_mp = rs.getInt("add_mp");
 			int add_points = rs.getInt("add_points");
@@ -42,7 +42,7 @@ public class ItemDAO {
 			int buy_money = rs.getInt("buy_money");
 			int add_max_hp = rs.getInt("add_max_hp");
 			int add_max_mp = rs.getInt("add_max_mp");
-			String item_type_name = rs.getString("item_type_name");
+			String item_type_name = rs.getString("item_type_name").trim();
 			int add_lv = rs.getInt("add_lv");
 			int add_job_lv = rs.getInt("add_job_lv");
 			Item = new ItemBean(item_id, item_name, item_type_id, caption, add_hp, add_mp, add_points, add_str,
@@ -60,9 +60,9 @@ public class ItemDAO {
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int item_id = rs.getInt("item_id");
-			String item_name = rs.getString("item_name");
+			String item_name = rs.getString("item_name").trim();
 			int item_type_id = rs.getInt("item_type_id");
-			String caption = rs.getString("caption");
+			String caption = rs.getString("caption").trim();
 			int add_hp = rs.getInt("add_hp");
 			int add_mp = rs.getInt("add_mp");
 			int add_points = rs.getInt("add_points");
@@ -79,7 +79,7 @@ public class ItemDAO {
 			int buy_money = rs.getInt("buy_money");
 			int add_max_hp = rs.getInt("add_max_hp");
 			int add_max_mp = rs.getInt("add_max_mp");
-			String item_type_name = rs.getString("item_type_name");
+			String item_type_name = rs.getString("item_type_name").trim();
 			int add_lv = rs.getInt("add_lv");
 			int add_job_lv = rs.getInt("add_job_lv");
 			ItemBean item = new ItemBean(item_id, item_name, item_type_id, caption, add_hp, add_mp, add_points, add_str,

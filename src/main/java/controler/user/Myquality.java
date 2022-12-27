@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import model.service.Chars;
 import model.service.Item;
+import model.service.Job;
 
 @WebServlet("/Myquality")
 public class Myquality extends HttpServlet {
@@ -21,12 +22,14 @@ public class Myquality extends HttpServlet {
 		int char_id = (int) session.getAttribute("char_id");
 		Item itemfun = new Item();
 		Chars charfun = new Chars();
+		Job jobfun = new Job();
 		try {
+			request.setAttribute("myjob", jobfun.selecet_job_for_char_id(char_id));
 			request.setAttribute("myitems", itemfun.select_item_bag_all(char_id));
 			request.setAttribute("myequipments", itemfun.select_equipment_all(char_id));
 			request.setAttribute("mychar", charfun.select_CharsBycharID(char_id));
 			request.setAttribute("mychar_q", charfun.selectChar_qBycharid(char_id));
-			request.getRequestDispatcher("/view/user/Bag.jsp").forward(request, response);
+			request.getRequestDispatcher("/view/user/Myquality.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

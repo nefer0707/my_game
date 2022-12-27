@@ -82,7 +82,6 @@ public class Item {
 		ItemDAO dao = new ItemDAO(con);
 		ItemBean item = dao.select_item(item_id);
 		if (item.getItem_type_id() == 2) {
-			System.out.println("此為武器。");
 			con.close();
 			return true;
 		}
@@ -95,7 +94,6 @@ public class Item {
 		ItemDAO dao = new ItemDAO(con);
 		ItemBean item = dao.select_item(item_id);
 		if (item.getItem_type_id() == 1) {
-			System.out.println("此為防具。");
 			con.close();
 			return true;
 		}

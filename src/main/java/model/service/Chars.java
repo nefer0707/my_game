@@ -1,14 +1,9 @@
 package model.service;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.util.Base64;
 import java.util.List;
-
 import javax.management.RuntimeErrorException;
-import javax.servlet.http.Part;
-
 import model.MyConnection;
 import model.bean.chars.CharsBean;
 import model.bean.chars.Chars_qualityBean;
@@ -34,6 +29,7 @@ public class Chars {
 		con.close();
 		return mychar;
 	}
+
 	public void insert_Chars(String char_name, byte[] b, int uid) throws Exception {
 		Connection con = MyConnection.getMyConnection();
 		CharsDAO dao = new CharsDAO(con);
@@ -93,8 +89,6 @@ public class Chars {
 		Connection con = MyConnection.getMyConnection();
 		Chars_qualityDAO dao = new Chars_qualityDAO(con);
 		Chars_qualityBean mychar_q = selectChar_qBycharid(char_id);
-		int max_hp = mychar_q.getMax_hp();
-		int max_mp = mychar_q.getMax_mp();
 		int nowlv = mychar_q.getLv();
 		int nowpoint = mychar_q.getPoints();
 		int uplv = lv - nowlv;
@@ -105,8 +99,11 @@ public class Chars {
 		if (!(lv >= 100)) {
 			update_Char_q_points(char_id, lvup_point);
 			dao.update_Char_q_lv(lv, char_id);
+			mychar_q = selectChar_qBycharid(char_id);
+			int max_hp = mychar_q.getMax_hp();
+			int max_mp = mychar_q.getMax_mp();
 			update_Char_q_hp(char_id, max_hp);
-			update_Char_q_mp(char_id, max_mp);
+			update_Char_q_max_mp(char_id, max_mp);
 		}
 		con.close();
 	}
@@ -189,8 +186,11 @@ public class Chars {
 		Connection con = MyConnection.getMyConnection();
 		Chars_qualityDAO dao = new Chars_qualityDAO(con);
 		int max_hp = selectChar_qBycharid(char_id).getMax_hp();
-		if (hp > max_hp) {
+		if (hp >= max_hp) {
 			hp = max_hp;
+		}
+		if (hp <= 0) {
+			hp = 0;
 		}
 		dao.update_Char_q_hp(hp, char_id);
 		con.close();
@@ -200,8 +200,11 @@ public class Chars {
 		Connection con = MyConnection.getMyConnection();
 		Chars_qualityDAO dao = new Chars_qualityDAO(con);
 		int mp = selectChar_qBycharid(char_id).getMp();
-		if (mp > max_mp) {
+		if (mp >= max_mp) {
 			mp = max_mp;
+		}
+		if (mp <= 0) {
+			mp = 0;
 		}
 		update_Char_q_mp(char_id, mp);
 		dao.update_Char_q_max_mp(max_mp, char_id);
@@ -212,8 +215,11 @@ public class Chars {
 		Connection con = MyConnection.getMyConnection();
 		Chars_qualityDAO dao = new Chars_qualityDAO(con);
 		int max_mp = selectChar_qBycharid(char_id).getMax_mp();
-		if (mp > max_mp) {
+		if (mp >= max_mp) {
 			mp = max_mp;
+		}
+		if (mp <= 0) {
+			mp = 0;
 		}
 		dao.update_Char_q_mp(mp, char_id);
 		con.close();
@@ -265,9 +271,9 @@ public class Chars {
 		Chars_qualityDAO dao = new Chars_qualityDAO(con);
 		Chars_qualityBean mychar_q = selectChar_qBycharid(char_id);
 		int nowvit = mychar_q.getVit();
-		int now_max_hp = mychar_q.getMax_mp();
+		int now_max_hp = mychar_q.getMax_hp();
 		int upvit = vit - nowvit;
-		int uphp = now_max_hp + (upvit * 5);
+		int uphp = (now_max_hp + (upvit * 5));
 		update_Char_q_max_hp(char_id, uphp);
 		dao.update_Char_q_vit(vit, char_id);
 		con.close();
@@ -285,18 +291,18 @@ public class Chars {
 		update_Char_q_agi(char_id, agi);
 		update_Char_q_dex(char_id, dex);
 		update_Char_q_exp(char_id, exp);
-		update_Char_q_hp(char_id, hp);
 		update_Char_q_inte(char_id, inte);
 		update_Char_q_job_exp(char_id, job_exp);
 		update_Char_q_job_lv(char_id, job_lv);
 		update_Char_q_luk(char_id, luk);
-		update_Char_q_lv(char_id, lv);
 		update_Char_q_max_hp(char_id, max_hp);
 		update_Char_q_max_mp(char_id, max_mp);
 		update_Char_q_mp(char_id, mp);
 		update_Char_q_str(char_id, str);
 		update_Char_q_vit(char_id, vit);
 		update_Char_q_points(char_id, points);
+		update_Char_q_hp(char_id, hp);
+		update_Char_q_lv(char_id, lv);
 
 	}
 
@@ -391,6 +397,11 @@ public class Chars {
 
 	public void update_forP_All(int add_str, int add_inte, int add_dex, int add_agi, int add_luk, int add_vit,
 			int char_id) throws Exception {
+		Chars_qualityBean mychar_q = selectChar_qBycharid(char_id);
+		int points = add_agi + add_dex + add_inte + add_luk + add_str + add_vit;
+		if (points > mychar_q.getPoints()) {
+			throw new RuntimeErrorException(null);
+		}
 		update_froP_agi(add_agi, char_id);
 		update_froP_dex(add_dex, char_id);
 		update_froP_inte(add_inte, char_id);
