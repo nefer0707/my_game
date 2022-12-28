@@ -53,10 +53,10 @@ public class Battle_monsterDAO {
 		ps.executeUpdate();
 	}
 	
-	public void detele_for_battle_id(int battle_id) throws SQLException {
-		String sql="detele from [MyGame].[dbo].[battle_monster] where battle_id = ?";
+	public void detele_for_battle_id (int battle_id ) throws SQLException {
+		String sql="delete from [MyGame].[dbo].[battle_monster] where battle_id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, battle_id);
+		ps.setInt(1, battle_id );
 		ps.executeUpdate();
 	}
 	

@@ -34,16 +34,17 @@ public class CharsDAO {
 		}
 		return mychar;
 	}
-	public CharsBean selectByuid(int uid) throws Exception {
-		String sql = "select * from [MyGame].[dbo].[chars] where uid = ?";
+	public CharsBean selectBy_char_name(String char_name,int uid) throws Exception {
+		String sql = "select * from [MyGame].[dbo].[chars] where char_name = ? and uid = ?";
 		CharsBean mychar = null;
 		try (PreparedStatement ps = con.prepareStatement(sql);) {
-			ps.setObject(1, uid);
+			ps.setObject(1, char_name);
+			ps.setObject(2, uid);
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					uid = rs.getInt("uid");
 					int char_id = rs.getInt("char_id");
-					String char_name = rs.getString("char_name");
+					char_name = rs.getString("char_name");
 					String img = rs.getString("img");
 					int job_id = rs.getInt("job_id");
 					int money = rs.getInt("money");

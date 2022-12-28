@@ -39,7 +39,7 @@ public class Chars {
 //			byte[] bytes = new BufferedInputStream(new FileInputStream(img)).readAllBytes();
 			img_base64 += Base64.getEncoder().encodeToString(b);
 			dao.insertChars(uid, char_name, img_base64);
-			int char_id = dao.selectByuid(uid).getChar_id();
+			int char_id = dao.selectBy_char_name(char_name, uid).getChar_id();
 			insert_Char_q(char_id);
 		} else {
 			throw new RuntimeErrorException(null);
@@ -136,7 +136,6 @@ public class Chars {
 					exp = 0;
 				}
 				lv++;
-
 			}
 			if (lv >= 100) {
 				lv = 100;
@@ -146,7 +145,9 @@ public class Chars {
 				break;
 			}
 		}
-		update_Char_q_lv(char_id, lv);
+		if (lv != selectChar_qBycharid(char_id).getLv()) {
+			update_Char_q_lv(char_id, lv);
+		}
 		dao.update_Char_q_exp(exp, char_id);
 		con.close();
 	}

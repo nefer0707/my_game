@@ -14,7 +14,7 @@ public class MonsterDAO {
 	}
 
 	public MonsterBean select_for_Battlemap_id(int battlemap_id) throws SQLException {
-		String sql = "select top1 * from [MyGame].[dbo].[monster] where battlemap_id = ?";
+		String sql = "select top 1 * from [MyGame].[dbo].[monster] where battlemap_id = ?";
 		MonsterBean monster = null;
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, battlemap_id);

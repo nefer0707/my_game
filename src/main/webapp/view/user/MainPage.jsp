@@ -91,7 +91,7 @@
 					<ul class="list-inline">
 						<li>選單
 						<li><form method="post" action="/MyGame/Battle">
-								<select name="battleMap">
+								<select name="battlemap_name">
 									<option>選擇戰鬥地圖</option>
 									<option>新手村</option>
 									<option>中階地圖</option>
