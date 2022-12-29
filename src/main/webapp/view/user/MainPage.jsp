@@ -99,16 +99,26 @@
 								</select> <input type="submit" value="戰鬥"
 									class="btn btn-outline-secondary">
 							</form>
-						<li class="mt-3"><form method="post" action="/MyGame/MySkillAndJob"><input type="submit" value="職業與技能"
-								class="btn btn-outline-secondary"></form>
-						<li class="mt-2"><form method="post" action="/MyGame/Myquality"><input type="submit" value="詳細素質"
-								class="btn btn-outline-secondary"></form>
+						<li class="mt-3"><form method="post"
+								action="/MyGame/MySkillAndJob">
+								<input type="submit" value="職業與技能"
+									class="btn btn-outline-secondary">
+							</form>
+						<li class="mt-2"><form method="post"
+								action="/MyGame/Myquality">
+								<input type="submit" value="詳細素質"
+									class="btn btn-outline-secondary">
+							</form>
 						<li class="mt-2"><form method="post" action="/MyGame/Bag">
 								<input type="submit" value="背包"
 									class="btn btn-outline-secondary">
 							</form>
 						<li class="mt-2"><form method="post" action="/MyGame/Rest">
 								<input type="submit" value="休息"
+									class="btn btn-outline-secondary">
+							</form>
+						<li class="mt-2"><form method="post" action="/MyGame/Logout">
+								<input type="submit" value="登出"
 									class="btn btn-outline-secondary">
 							</form>
 					</ul>

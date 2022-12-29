@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.MyConnection;
 import model.bean.chars.CharsBean;
+import model.bean.chars.Chars_qualityBean;
 import model.bean.community.JobBean;
 import model.dao.community.JobDAO;
 
@@ -45,12 +46,27 @@ public class Job {
 		List<JobBean> jobs = new ArrayList<JobBean>();
 		JobBean myjob = selecet_job_for_char_id(char_id);
 		int job_lavel = myjob.getJob_lavel();
-		int job_type_id =myjob.getJob_type_id();
-		if(job_lavel==0) {
-			jobs= select_by_job_lavel(1);
-		}else {
-			jobs=select_by_job_lavel_job_type_id(job_lavel+1, job_type_id);
+		int job_type_id = myjob.getJob_type_id();
+		if (job_lavel == 0) {
+			jobs = select_by_job_lavel(1);
+		} else {
+			jobs = select_by_job_lavel_job_type_id(job_lavel + 1, job_type_id);
 		}
 		return jobs;
+	}
+
+	public String changjob(int char_id, int job_id) throws Exception {
+		String msg = "";
+		Chars charfun = new Chars();
+		Chars_qualityBean mychar_q = charfun.selectChar_qBycharid(char_id);
+		int job_lv = mychar_q.getJob_lv();
+		String job_name = selecet_job_for_job_id(job_id).getJob_name();
+		if (job_lv < 30) {
+			msg = "職業等級未滿30，無法轉職。";
+		} else {
+			charfun.update_Char_job(char_id, job_id);
+			msg = "成功轉職為" + job_name + "。";
+		}
+		return msg;
 	}
 }

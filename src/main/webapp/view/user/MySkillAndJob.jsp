@@ -56,9 +56,18 @@
 									<td>${job.job_name}
 									<td>${job.job_lavel}
 									<td>${job.job_type_name}
-									<td><a href="/MyGame/ChangeJob?job_id=${job.job_id}"><input
-											class="btn btn-outline-secondary" type="button" value="轉職"></a>
+									<td>
+										<form method="post" action="ChangeJob">
+											<input type="text" name="job_id" value="${job.job_id}"
+												style="display: none;"> <input
+												class="btn btn-outline-secondary" type="submit" value="轉職">
+										</form>
 							</c:forEach>
+					<tr>
+						<td>${job_msg}
+						<td>
+						<td>
+						<td>
 				</table>
 				<div class="row">當前職業可學習技能</div>
 				<table>
@@ -73,9 +82,19 @@
 									<td>${skill.need_job_lv}
 									<td>${skill.power}
 									<td>${skill.caption}
-									<td><a href="/MyGame/Study?skill_id=${skill.skill_id}"><input
-											class="btn btn-outline-secondary" type="button" value="學習"></a>
+									<td>
+										<form method="post" action="Study">
+											<input type="text" name="skill_id" value="${skill.skill_id}"
+												style="display: none;"> <input
+												class="btn btn-outline-secondary" type="submit" value="學習">
+										</form>
 							</c:forEach>
+					<tr>
+						<td>${msg}
+						<td>
+						<td>
+						<td>
+						<td>
 				</table>
 				<div class="row">
 					<form method="post" action="/MyGame/Backhome">

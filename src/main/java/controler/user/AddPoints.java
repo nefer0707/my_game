@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import model.service.Chars;
 import model.service.Item;
 import model.service.Job;
+import model.service.Skill;
 
 @WebServlet("/AddPoints")
 public class AddPoints extends HttpServlet {
@@ -30,9 +31,11 @@ public class AddPoints extends HttpServlet {
 		int add_agi = Integer.parseInt(request.getParameter("add_agi"));
 		int add_dex = Integer.parseInt(request.getParameter("add_dex"));
 		int add_vit = Integer.parseInt(request.getParameter("add_vit"));
+		Skill skillfun = new Skill();
 		String text ="";
 		try {
 			charfun.update_forP_All(add_str, add_inte, add_dex, add_agi, add_luk, add_vit, char_id);
+			request.setAttribute("myskill", skillfun.select_skillList_by_char_id(char_id));
 			request.setAttribute("myjob", jobfun.selecet_job_for_char_id(char_id));
 			request.setAttribute("myitems", itemfun.select_item_bag_all(char_id));
 			request.setAttribute("myequipments", itemfun.select_equipment_all(char_id));

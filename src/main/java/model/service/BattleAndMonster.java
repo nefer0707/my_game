@@ -238,6 +238,26 @@ public class BattleAndMonster {
 						msg += "怪物的攻擊的攻擊沒有命中。";
 					}
 				}
+			} else {
+				if (monsterhit(char_id)) {
+					msg += att_mychar(char_id);
+					if (char_die(char_id)) {
+						msg = battle_end_char_die(char_id);
+					}
+				} else {
+					msg += "怪物的攻擊的攻擊沒有命中。";
+				}
+				if (char_die(char_id)) {
+				} else {
+					if (charhit(char_id)) {
+						msg += att_monster(char_id);
+					} else {
+						msg += "你的攻擊沒有命中。";
+					}
+					if (select_battle_monster(battle_id).getHp() == 0) {
+						msg += battle_end_monster_die(char_id);
+					}
+				}
 			}
 		} else {
 			msg = "<form method=\"post\" action=\"/MyGame/Backhome\"><input  class=\"btn btn-outline-secondary\" type=\"submit\" value=\"回主畫面\"> </form>";
@@ -310,6 +330,166 @@ public class BattleAndMonster {
 		String item_name = itemfun.select_item_item_id(item_id).getItem_name();
 		itemfun.use_f(item_id, char_id);
 		msg = "使用/裝備" + item_name + "道具。";
+		return msg;
+	}
+
+	public boolean isAtk(int skill_id) throws Exception {
+		Skill skillfun = new Skill();
+		boolean flag = false;
+		if (skillfun.select_skill_by_skill_id(skill_id).getSkill_type_id() == 1) {
+			flag = true;
+		}
+		return flag;
+	}
+
+	public boolean isMatk(int skill_id) throws Exception {
+		Skill skillfun = new Skill();
+		boolean flag = false;
+		if (skillfun.select_skill_by_skill_id(skill_id).getSkill_type_id() == 2) {
+			flag = true;
+		}
+		return flag;
+	}
+
+	public String skillAtt(int char_id, int skill_id) throws Exception {
+
+		int battle_id = select_battle_char_id(char_id).getBattle_id();
+		int mychar_agi = new Chars().selectChar_qBycharid(char_id).getAgi();
+		int monster_agi = select_battle_monster(battle_id).getAgi();
+		int monster_hp = select_battle_monster(battle_id).getHp();
+		int power = new Skill().select_skill_by_skill_id(skill_id).getPower();
+		int mychar_mp = new Chars().selectChar_qBycharid(char_id).getMp();
+		int need_mp = new Skill().select_skill_by_skill_id(skill_id).getMp();
+		int mp = mychar_mp - need_mp;
+		String skill_name = new Skill().select_skill_by_skill_id(skill_id).getSkill_name();
+		String msg = "<p>";
+		if (monster_hp == 0) {
+			msg = "<p><form method=\"post\" action=\"/MyGame/Backhome\"><input  class=\"btn btn-outline-secondary\" type=\"submit\" value=\"回主畫面\"> </form>";
+		} else {
+			if (mp >= 0) {
+				new Chars().update_Char_q_mp(char_id, mp);
+				if (isAtk(skill_id)) {
+					int char_str = new Chars().selectChar_qBycharid(char_id).getStr();
+					if (mychar_agi >= monster_agi) {
+						if (charhit(char_id)) {
+							if (isCri(char_id)) {
+								msg += "造成暴擊！";
+								power *= 1.2;
+							}
+							msg += "使用" + skill_name + "技能，對怪物造成" + (int) ((power + char_str) * 1.2) + "點傷害。<p>";
+
+							if (!(monster_hp - (int) ((power + char_str) * 1.2) <= 0)) {
+								update_monster_hp(monster_hp - (int) ((power + char_str) * 1.2), battle_id);
+							} else {
+								monster_hp = 0;
+								update_monster_hp(0, battle_id);
+								msg += battle_end_monster_die(char_id);
+							}
+						} else {
+							msg += "你的攻擊沒有命中。<p>";
+						}
+						if (monster_hp == 0) {
+
+						} else if (monsterhit(char_id)) {
+							msg += att_mychar(char_id);
+							if (char_die(char_id)) {
+								msg = battle_end_char_die(char_id);
+							}
+						} else {
+							msg += "怪物的攻擊的攻擊沒有命中。";
+						}
+					} else {
+						if (monsterhit(char_id)) {
+							msg += att_mychar(char_id);
+							if (char_die(char_id)) {
+								msg = battle_end_char_die(char_id);
+							}
+						} else {
+							msg += "怪物的攻擊的攻擊沒有命中。";
+						}
+						if (char_die(char_id)) {
+						} else {
+							if (charhit(char_id)) {
+								if (isCri(char_id)) {
+									msg += "造成暴擊！";
+									power *= 1.2;
+								}
+								msg += "使用" + skill_name + "技能，對怪物造成" + (int) ((power + char_str) * 1.2) + "點傷害。";
+
+								if (!(monster_hp - (int) ((power + char_str) * 1.2) <= 0)) {
+									update_monster_hp(monster_hp - (int) ((power + char_str) * 1.2), battle_id);
+								} else {
+									update_monster_hp(0, battle_id);
+									msg += battle_end_monster_die(char_id);
+								}
+							} else {
+								msg += "你的攻擊沒有命中。";
+							}
+						}
+					}
+				}
+				if (isMatk(skill_id)) {
+					int char_inte = new Chars().selectChar_qBycharid(char_id).getInte();
+					if (mychar_agi >= monster_agi) {
+						if (charhit(char_id)) {
+							if (isCri(char_id)) {
+								msg += "造成暴擊！";
+								power *= 1.2;
+							}
+							msg += "使用" + skill_name + "技能，對怪物造成" + (int) ((power + char_inte) * 1.2) + "點傷害。<p>";
+
+							if (!(monster_hp - (int) ((power + char_inte) * 1.2) <= 0)) {
+								update_monster_hp(monster_hp - (int) ((power + char_inte) * 1.2), battle_id);
+							} else {
+								monster_hp = 0;
+								update_monster_hp(0, battle_id);
+								msg += battle_end_monster_die(char_id);
+							}
+						} else {
+							msg += "你的攻擊沒有命中。<p>";
+						}
+						if (monster_hp == 0) {
+
+						} else if (monsterhit(char_id)) {
+							msg += att_mychar(char_id);
+							if (char_die(char_id)) {
+								msg = battle_end_char_die(char_id);
+							}
+						} else {
+							msg += "怪物的攻擊的攻擊沒有命中。";
+						}
+					} else {
+						if (monsterhit(char_id)) {
+							msg += att_mychar(char_id);
+							if (char_die(char_id)) {
+								msg = battle_end_char_die(char_id);
+							}
+						} else {
+							msg += "怪物的攻擊的攻擊沒有命中。";
+						}
+						if (charhit(char_id)) {
+							if (isCri(char_id)) {
+								msg += "造成暴擊！";
+								power *= 1.2;
+							}
+							msg += "使用" + skill_name + "技能，對怪物造成" + (int) ((power + char_inte) * 1.2) + "點傷害。";
+
+							if (!(monster_hp - (int) ((power + char_inte) * 1.2) <= 0)) {
+								update_monster_hp(monster_hp - (int) ((power + char_inte) * 1.2), battle_id);
+							} else {
+								update_monster_hp(0, battle_id);
+								msg += battle_end_monster_die(char_id);
+							}
+						} else {
+							msg += "你的攻擊沒有命中。";
+						}
+					}
+				}
+			} else {
+				mp = 0;
+				msg = "你的魔力不足。";
+			}
+		}
 		return msg;
 	}
 }

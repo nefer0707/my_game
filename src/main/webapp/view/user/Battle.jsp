@@ -84,47 +84,45 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<form method="post" action="/MyGame/MySkill_Battle">
-					<table class="showskill">
-						<tr>
-							<th>技能名稱
-							<th>威力
-							<th>消耗mp
-							<td><c:forEach items="${myskill}" var="skill">
-									<tr>
-										<td>${skill.skill_name}
-										<td>${skill.power}
-										<td>${skill.mp}
-										<td><a
-											href="/MyGame/MySKill_Battle?skill_id=${skill.skill_id}"><input
-												type="submit" value="使用"></a>
-								</c:forEach>
-					</table>
-				</form>
+				<table class="showskill">
+					<tr>
+						<th>技能名稱
+						<th>威力
+						<th>消耗mp
+						<td><c:forEach items="${myskill}" var="skill">
+								<tr>
+									<td>${skill.skill_name}
+									<td>${skill.power}
+									<td>${skill.mp}
+									<td><form method="post" action="MySkill_Battle">
+											<input type="text" name="skill_id" value="${skill.skill_id}"
+												style="display: none;"> <input
+												class="btn btn-outline-secondary" type="submit" value="使用">
+										</form>
+							</c:forEach>
+				</table>
+
 			</div>
 			<div class="col">
 
 				<table class="showbag">
 					<tr>
-						<th>物品名稱 <th>類型
-							
+						<th>物品名稱
+						<th>類型
 						<th>說明
-							
 						<td><c:forEach items="${myitems}" var="item">
-									<tr>
-										<td>${item.item_name}
-										
+								<tr>
+									<td>${item.item_name}
 									<td>${item.item_type_name}
-										
 									<td>${item.caption}
-										
-									<td><a href="/MyGame/MyBag_Battle?item_id=${item.item_id}"><input
-											type="submit" value="使用"></a>>
-								
+									<td><form method="post" action="MyBag_Battle">
+											<input type="text" name="item_id" value="${item.item_id}"
+												style="display: none;"> <input
+												class="btn btn-outline-secondary" type="submit" value="使用">
+										</form>
 							</c:forEach>
-					
 				</table>
-			
+
 			</div>
 		</div>
 	</div>
@@ -139,5 +137,6 @@
 		$(".mybag").click(function() {
 			$(".showbag").show();
 		});
-	</script></body>
+	</script>
+</body>
 </html>

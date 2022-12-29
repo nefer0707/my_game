@@ -12,6 +12,7 @@ import model.service.BattleAndMonster;
 import model.service.Chars;
 import model.service.Item;
 import model.service.Job;
+import model.service.Skill;
 
 @WebServlet("/Battle")
 public class Battle extends HttpServlet {
@@ -27,7 +28,9 @@ public class Battle extends HttpServlet {
 		Chars charfun = new Chars();
 		Job jobfun = new Job();
 		BattleAndMonster battlefun = new BattleAndMonster();
+		Skill skillfun = new Skill();
 		try {
+			request.setAttribute("myskill", skillfun.select_skillList_by_char_id(char_id));
 			request.setAttribute("battle_monster", battlefun.battle_insert_select_monster(battlemap_name, char_id));
 			session.setAttribute("battle_id", battlefun.select_battle_char_id(char_id).getBattle_id());
 			request.setAttribute("myjob", jobfun.selecet_job_for_char_id(char_id));

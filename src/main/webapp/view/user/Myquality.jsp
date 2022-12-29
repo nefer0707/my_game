@@ -133,37 +133,12 @@
 				<table class="table border-1">
 					<tr>
 						<td>持有技能信息
-						<td>
+						<tr><th>技能名稱
+					<c:forEach items="${myskill}" var="skill">
 					<tr>
-						<td>123:
-						<td>123
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
-					<tr>
-						<td>321:
-						<td>321
+						<td>${skill.skill_name}
+						</c:forEach>
+	
 				</table>
 			</div>
 		</div>

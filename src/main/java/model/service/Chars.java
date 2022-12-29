@@ -118,6 +118,14 @@ public class Chars {
 		con.close();
 	}
 
+	public void update_Char_job(int char_id, int job_id) throws Exception {
+		Connection con = MyConnection.getMyConnection();
+		CharsDAO dao = new CharsDAO(con);
+
+		dao.updateChars_job_id(job_id, char_id);
+		con.close();
+	}
+
 	public void update_Char_q_exp(int char_id, int exp) throws Exception {
 		Connection con = MyConnection.getMyConnection();
 		Chars_qualityDAO dao = new Chars_qualityDAO(con);
