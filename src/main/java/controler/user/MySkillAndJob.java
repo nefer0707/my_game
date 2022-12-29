@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import model.service.Chars;
 import model.service.Item;
 import model.service.Job;
+import model.service.Skill;
 
 @WebServlet("/MySkillAndJob")
 public class MySkillAndJob extends HttpServlet {
@@ -24,7 +25,10 @@ public class MySkillAndJob extends HttpServlet {
 		Item itemfun = new Item();
 		Chars charfun = new Chars();
 		Job jobfun = new Job();
+		Skill skillfun = new Skill();
 		try {
+			request.setAttribute("skills", skillfun.select_skillList_by_char_id(char_id));
+			request.setAttribute("jobs", jobfun.select_for_jobLise_by_char_id(char_id));
 			request.setAttribute("myjob", jobfun.selecet_job_for_char_id(char_id));
 			request.setAttribute("myitems", itemfun.select_item_bag_all(char_id));
 			request.setAttribute("myequipments", itemfun.select_equipment_all(char_id));

@@ -46,7 +46,37 @@
 			</div>
 			<div class="col">
 				<div class="row">轉職列表</div>
+				<table>
+					<tr>
+						<th>職業名稱
+						<th>職業階級
+						<th>職業類型
+						<th><c:forEach items="${jobs}" var="job">
+								<tr>
+									<td>${job.job_name}
+									<td>${job.job_lavel}
+									<td>${job.job_type_name}
+									<td><a href="/MyGame/ChangeJob?job_id=${job.job_id}"><input
+											class="btn btn-outline-secondary" type="button" value="轉職"></a>
+							</c:forEach>
+				</table>
 				<div class="row">當前職業可學習技能</div>
+				<table>
+					<tr>
+						<th>技能名稱
+						<th>需要等級
+						<th>威力
+						<th>說明
+						<th><c:forEach items="${skills}" var="skill">
+								<tr>
+									<td>${skill.skill_name}
+									<td>${skill.need_job_lv}
+									<td>${skill.power}
+									<td>${skill.caption}
+									<td><a href="/MyGame/Study?skill_id=${skill.skill_id}"><input
+											class="btn btn-outline-secondary" type="button" value="學習"></a>
+							</c:forEach>
+				</table>
 				<div class="row">
 					<form method="post" action="/MyGame/Backhome">
 						<input class="btn btn-outline-secondary" type="submit"

@@ -4,9 +4,11 @@ import java.sql.Connection;
 import model.MyConnection;
 import model.bean.chars.CharsBean;
 import model.bean.chars.Chars_qualityBean;
+import model.bean.chars.Item_BagBean;
 import model.bean.community.BattleBean;
 import model.bean.community.BattleMapBean;
 import model.bean.community.Battle_monsterBean;
+import model.bean.community.ItemBean;
 import model.bean.community.MonsterBean;
 import model.dao.community.BattleDAO;
 import model.dao.community.BattleMapDAO;
@@ -109,7 +111,7 @@ public class BattleAndMonster {
 	}
 
 	public Battle_monsterBean battle_insert_select_monster(String battlemap_name, int char_id) throws Exception {
-		if (select_battle_char_id(char_id)!=null) {
+		if (select_battle_char_id(char_id) != null) {
 			int battle_id = select_battle_char_id(char_id).getBattle_id();
 			delete_battle_monster(battle_id);
 			delete_battle(char_id);
@@ -157,28 +159,56 @@ public class BattleAndMonster {
 		return flag;
 	}
 
-	public void att_monster(int char_id) throws Exception {
+	public String att_monster(int char_id) throws Exception {
 		int battle_id = select_battle_char_id(char_id).getBattle_id();
 		int str = new Chars().selectChar_qBycharid(char_id).getStr();
 		int hp = select_battle_monster(battle_id).getHp();
+		String msg = "";
+		if (isCri(char_id)) {
+			str *= 1.2;
+			msg += "造成暴擊！";
+		}
 		if (hp - str <= 0) {
 			hp = 0;
 		} else {
 			hp -= str;
+			msg += "你對怪物造成了" + str + "點傷害。<p>";
+
 		}
 		update_monster_hp(hp, battle_id);
+		return msg;
 	}
 
-	public void att_mychar(int char_id) throws Exception {
+	public boolean isCri(int char_id) throws Exception {
+		int battle_id = select_battle_char_id(char_id).getBattle_id();
+		int luk = select_battle_monster(battle_id).getLuk();
+		int cri = (int) (Math.random() * 100);
+		boolean flag = false;
+		if (cri <= luk) {
+			flag = true;
+		}
+		return flag;
+	}
+
+	public String att_mychar(int char_id) throws Exception {
 		int battle_id = select_battle_char_id(char_id).getBattle_id();
 		int str = select_battle_monster(battle_id).getStr();
 		int hp = new Chars().selectChar_qBycharid(char_id).getHp();
+		String msg = "";
+		if (isCri(char_id)) {
+			str *= 1.2;
+			msg += "造成暴擊！";
+		}
 		if (hp - str <= 0) {
 			hp = 0;
 		} else {
 			hp -= str;
+			msg += "怪物對你造成了" + str + "點傷害。<p>";
+
 		}
 		new Chars().update_Char_q_hp(char_id, hp);
+		return msg;
+
 	}
 
 	public String att(int char_id) throws Exception {
@@ -186,25 +216,37 @@ public class BattleAndMonster {
 		int mychar_agi = new Chars().selectChar_qBycharid(char_id).getAgi();
 		int monster_agi = select_battle_monster(battle_id).getAgi();
 		int monster_hp = select_battle_monster(battle_id).getHp();
-		String msg = "";
-		if(monster_hp!=0) {
-		if (mychar_agi >= monster_agi) {
-			if (charhit(char_id))
-				att_monster(char_id);
-			if (select_battle_monster(battle_id).getHp() == 0) {
-				msg = battle_end_monster_die(char_id);
-			} else {
-				if (monsterhit(char_id))
-					att_mychar(char_id);
+		String msg = "<p>";
+		if (char_die(char_id)) {
+			msg = battle_end_char_die(char_id);
+		} else if (monster_hp != 0) {
+			if (mychar_agi >= monster_agi) {
+				if (charhit(char_id)) {
+					msg += att_monster(char_id);
+				} else {
+					msg += "你的攻擊沒有命中。";
+				}
+				if (select_battle_monster(battle_id).getHp() == 0) {
+					msg += battle_end_monster_die(char_id);
+				} else {
+					if (monsterhit(char_id)) {
+						msg += att_mychar(char_id);
+						if (char_die(char_id)) {
+							msg = battle_end_char_die(char_id);
+						}
+					} else {
+						msg += "怪物的攻擊的攻擊沒有命中。";
+					}
+				}
 			}
-		}}
-		else {
-			msg="<form method=\"post\" action=\"/MyGame/Backhome\"><input  class=\"btn btn-outline-secondary\" type=\"submit\" value=\"回主畫面\"> </form>";
+		} else {
+			msg = "<form method=\"post\" action=\"/MyGame/Backhome\"><input  class=\"btn btn-outline-secondary\" type=\"submit\" value=\"回主畫面\"> </form>";
 		}
 		return msg;
 	}
 
 	public String battle_end_monster_die(int char_id) throws Exception {
+		String msg = "";
 		Chars charsfun = new Chars();
 		CharsBean mychar = charsfun.select_CharsBycharID(char_id);
 		Chars_qualityBean mychar_q = charsfun.selectChar_qBycharid(char_id);
@@ -215,8 +257,59 @@ public class BattleAndMonster {
 		charsfun.update_char_money(mychar.getMoney() + money, char_id);
 		charsfun.update_Char_q_exp(char_id, mychar_q.getExp() + exp);
 		charsfun.update_Char_q_job_exp(char_id, mychar_q.getJob_exp() + job_exp);
-		return "<p>獲得經驗值：" + exp + "<p>獲得職業經驗值：" + job_exp + "<p> 獲得金幣：" + money
+		msg += get_item(char_id);
+		msg += "<p>獲得經驗值：" + exp + "<p>獲得職業經驗值：" + job_exp + "<p> 獲得金幣：" + money
 				+ "<p><form method=\"post\" action=\"/MyGame/Backhome\"><input  class=\"btn btn-outline-secondary\" type=\"submit\" value=\"回主畫面\"> </form>";
+		return msg;
 	}
 
+	public String get_item(int char_id) throws Exception {
+		String msg = "";
+		int battle_id = select_battle_char_id(char_id).getBattle_id();
+		int luk = select_battle_monster(battle_id).getLuk();
+		int cri = (int) (Math.random() * 1);
+		if (cri <= luk) {
+			Item itemfun = new Item();
+			ItemBean item = itemfun.select_random_item();
+			int item_id = item.getItem_id();
+			String item_name = item.getItem_name();
+			Item_BagBean myitem_bag = itemfun.select_item_bag(char_id, item_id);
+			if (myitem_bag != null) {
+				int count = myitem_bag.getCount();
+				itemfun.update_item_bag_count(item_id, char_id, count + 1);
+			} else {
+				itemfun.insert_item_bag(item_id, char_id);
+			}
+			msg += "<p>獲得了" + item_name;
+		}
+
+		return msg;
+	}
+
+	public boolean char_die(int char_id) throws Exception {
+		int mychar_hp = new Chars().selectChar_qBycharid(char_id).getHp();
+		boolean flag = false;
+		if (mychar_hp == 0) {
+			flag = true;
+		}
+		return flag;
+	}
+
+	public String battle_end_char_die(int char_id) throws Exception {
+		int money = new Chars().select_CharsBycharID(char_id).getMoney();
+		int newmoney = money / 2;
+		money = money - newmoney;
+		new Chars().update_char_money(newmoney, char_id);
+		return "<p>角色已經死亡，無法繼續戰鬥，失去了" + money
+				+ "金錢。<form method=\"post\" action=\"/MyGame/Backhome\"><input  class=\"btn btn-outline-secondary\" type=\"submit\" value=\"回主畫面\"> </form>";
+	}
+
+	public String battle_use_item(int char_id, int item_id) throws Exception {
+		String msg = "";
+		Item itemfun = new Item();
+		String item_name = itemfun.select_item_item_id(item_id).getItem_name();
+		itemfun.use_f(item_id, char_id);
+		msg = "使用/裝備" + item_name + "道具。";
+		return msg;
+	}
 }

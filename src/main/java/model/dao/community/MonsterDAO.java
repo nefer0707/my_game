@@ -37,11 +37,14 @@ public class MonsterDAO {
 			int luk = rs.getInt("luk");
 			int vit = rs.getInt("vit");
 			battlemap_id = rs.getInt("battlemap_id");
-			monster = new MonsterBean(monster_id, monster_name, monster_img, lv, exp, job_exp, max_hp, hp,
-					max_mp, mp, str, inte, agi, dex, luk, vit, battlemap_id);
+			monster = new MonsterBean(monster_id, monster_name, monster_img, lv, exp, job_exp, max_hp, hp, max_mp, mp,
+					str, inte, agi, dex, luk, vit, battlemap_id);
+			rs.close();
 		}
+		ps.close();
 		return monster;
 	}
+
 	public MonsterBean select_for_monster_id(int monster_id) throws SQLException {
 		String sql = "select * from [MyGame].[dbo].[monster] where monster_id = ?";
 		MonsterBean monster = null;
@@ -66,9 +69,11 @@ public class MonsterDAO {
 			int luk = rs.getInt("luk");
 			int vit = rs.getInt("vit");
 			int battlemap_id = rs.getInt("battlemap_id");
-			monster = new MonsterBean(monster_id, monster_name, monster_img, lv, exp, job_exp, max_hp, hp,
-					max_mp, mp, str, inte, agi, dex, luk, vit, battlemap_id);
+			monster = new MonsterBean(monster_id, monster_name, monster_img, lv, exp, job_exp, max_hp, hp, max_mp, mp,
+					str, inte, agi, dex, luk, vit, battlemap_id);
+			rs.close();
 		}
+		ps.close();
 		return monster;
 	}
 }

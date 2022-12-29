@@ -19,6 +19,7 @@ public class BattleDAO {
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public BattleBean select_for_char_id(int char_id) throws SQLException {
@@ -32,12 +33,18 @@ public class BattleDAO {
 			char_id = rs.getInt("char_id");
 			battle = new BattleBean(battle_id, char_id);
 		}
+		rs.close();
+		ps.close();
 		return battle;
 	}
+
 	public void delete_for_char_id(int char_id) throws SQLException {
 		String sql = "delete from [MyGame].[dbo].[battle] where char_id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, char_id);
 		ps.executeUpdate();
+
+		ps.close();
 	}
+
 }

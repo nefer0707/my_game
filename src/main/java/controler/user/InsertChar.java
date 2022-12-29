@@ -28,8 +28,6 @@ public class InsertChar extends HttpServlet {
 		Part part = request.getPart("img");
 		byte[] b = part.getInputStream().readAllBytes();
 		try {
-			System.out.println(request.getParameter("char_name"));
-			System.out.println(request.getParameter("img"));
 			new Chars().insert_Chars(request.getParameter("char_name"),b, uid);
 			List<CharsBean> mychars = new Chars().select_CharsByUID(uid);
 			request.setAttribute("mychars", mychars);

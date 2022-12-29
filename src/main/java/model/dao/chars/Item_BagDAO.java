@@ -53,6 +53,8 @@ public class Item_BagDAO {
 					add_points, add_str, add_inte, add_dex, add_agi, add_luk, add_vit, add_money, add_exp, add_job_exp,
 					sell_money, buy_money, add_max_hp, add_max_mp, add_lv, add_job_lv, item_type_name);
 		}
+		rs.close();
+		ps.close();
 		return myItem;
 	}
 
@@ -92,8 +94,9 @@ public class Item_BagDAO {
 					add_mp, add_points, add_str, add_inte, add_dex, add_agi, add_luk, add_vit, add_money, add_exp,
 					add_job_exp, sell_money, buy_money, add_max_hp, add_max_mp, add_lv, add_job_lv, item_type_name);
 			myitems.add(myItem);
-
 		}
+		rs.close();
+		ps.close();
 		return myitems;
 	}
 
@@ -104,6 +107,7 @@ public class Item_BagDAO {
 		ps.setInt(2, char_id);
 		ps.setInt(3, item_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void delete_item_bag(int char_id, int item_id) throws SQLException {
@@ -112,6 +116,7 @@ public class Item_BagDAO {
 		ps.setInt(1, item_id);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void insert_item_bag(int char_id, int item_id, int count) throws SQLException {
@@ -121,6 +126,7 @@ public class Item_BagDAO {
 		ps.setInt(2, char_id);
 		ps.setInt(3, item_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 }

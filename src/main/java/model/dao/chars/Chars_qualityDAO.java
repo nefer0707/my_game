@@ -39,7 +39,9 @@ public class Chars_qualityDAO {
 			int points = rs.getInt("points");
 			mychar_q = new Chars_qualityBean(char_id, lv, job_lv, exp, job_exp, max_hp, hp, max_mp, mp, str, inte, dex,
 					agi, luk, vit, points);
+			rs.close();
 		}
+		ps.close();
 		return mychar_q;
 	}
 
@@ -66,6 +68,7 @@ public class Chars_qualityDAO {
 		ps.setInt(15, points);
 		ps.setInt(16, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_lv(int lv, int char_id) throws SQLException {
@@ -74,6 +77,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, lv);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_job_lv(int job_lv, int char_id) throws SQLException {
@@ -82,6 +86,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, job_lv);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_exp(int exp, int char_id) throws SQLException {
@@ -90,6 +95,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, exp);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_job_exp(int job_exp, int char_id) throws SQLException {
@@ -98,6 +104,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, job_exp);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_max_hp(int max_hp, int char_id) throws SQLException {
@@ -106,6 +113,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, max_hp);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_hp(int hp, int char_id) throws SQLException {
@@ -114,6 +122,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, hp);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_max_mp(int max_mp, int char_id) throws SQLException {
@@ -122,6 +131,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, max_mp);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_mp(int mp, int char_id) throws SQLException {
@@ -130,6 +140,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, mp);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_str(int str, int char_id) throws SQLException {
@@ -138,6 +149,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, str);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_inte(int inte, int char_id) throws SQLException {
@@ -146,6 +158,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, inte);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_dex(int dex, int char_id) throws SQLException {
@@ -154,6 +167,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, dex);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_agi(int agi, int char_id) throws SQLException {
@@ -162,6 +176,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, agi);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_luk(int luk, int char_id) throws SQLException {
@@ -170,6 +185,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, luk);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_vit(int vit, int char_id) throws SQLException {
@@ -178,6 +194,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, vit);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void update_Char_q_points(int points, int char_id) throws SQLException {
@@ -186,6 +203,7 @@ public class Chars_qualityDAO {
 		ps.setInt(1, points);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 }

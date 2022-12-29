@@ -51,8 +51,9 @@ public class EquipmentDAO {
 			equipment = new EquipmentBean(char_id, item_id, item_name, item_type_id, caption, add_hp, add_mp,
 					add_points, add_str, add_inte, add_dex, add_agi, add_luk, add_vit, add_money, add_exp, add_job_exp,
 					sell_money, buy_money, add_max_hp, add_max_mp, add_lv, add_job_lv, item_type_name);
-
 		}
+		rs.close();
+		ps.close();
 		return equipment;
 	}
 
@@ -91,18 +92,20 @@ public class EquipmentDAO {
 					add_mp, add_points, add_str, add_inte, add_dex, add_agi, add_luk, add_vit, add_money, add_exp,
 					add_job_exp, sell_money, buy_money, add_max_hp, add_max_mp, add_lv, add_job_lv, item_type_name);
 			equipments.add(equipment);
-
 		}
+		rs.close();
+		ps.close();
 		return equipments;
 	}
 
-	public void update_Equipment(int char_id, int new_item_id,int old_item_id) throws SQLException {
+	public void update_Equipment(int char_id, int new_item_id, int old_item_id) throws SQLException {
 		String sql = "UPDATE [MyGame].[dbo].[equipment] SET [item_id] = ? WHERE char_id = ? and item_id=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, new_item_id);
 		ps.setInt(2, char_id);
 		ps.setInt(3, old_item_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void delete_Equipment(int char_id, int item_id) throws SQLException {
@@ -111,6 +114,7 @@ public class EquipmentDAO {
 		ps.setInt(1, item_id);
 		ps.setInt(2, char_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public void insert_Equipment(int char_id, int item_id) throws SQLException {
@@ -119,5 +123,6 @@ public class EquipmentDAO {
 		ps.setInt(1, char_id);
 		ps.setInt(2, item_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 }

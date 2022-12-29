@@ -25,6 +25,8 @@ public class BattleMapDAO {
 			battlemap_name=rs.getString("battlemap_name");
 			choosemap = new BattleMapBean(battlemap_id, battlemap_name);
 		}
+		rs.close();
+		ps.close();
 		return choosemap;
 	}
 }

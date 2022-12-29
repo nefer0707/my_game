@@ -23,6 +23,7 @@ public class JobDAO {
 		ps.setInt(2, job_laval);
 		ps.setInt(3, job_type_id);
 		ps.executeUpdate();
+		ps.close();
 	}
 
 	public JobBean select_for_job_id(int job_id) throws SQLException {
@@ -39,6 +40,8 @@ public class JobDAO {
 			String job_type_name = rs.getString("job_type_name").trim();
 			job = new JobBean(job_id, job_name, job_lavel, job_type_id, job_type_name);
 		}
+		rs.close();
+		ps.close();
 		return job;
 	}
 
@@ -56,9 +59,50 @@ public class JobDAO {
 			JobBean job = new JobBean(job_id, job_name, job_lavel, job_type_id, job_type_name);
 			jobs.add(job);
 		}
+		rs.close();
+		ps.close();
 		return jobs;
 	}
 
+	public List<JobBean> select_list_for_job_type_id_job_lavel(int job_type_id,int job_lavel) throws SQLException {
+		String sql = "select * from [MyGame].[dbo].[job] as a inner join [MyGame].[dbo].[job_type] as b on a.job_type_id = b.job_type_id where a.job_type_id =? and a.job_lavel = ?";
+		List<JobBean> jobs = new ArrayList<JobBean>();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setObject(1, job_type_id);
+		ps.setObject(2, job_lavel);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			int job_id = rs.getInt("job_id");
+			String job_name = rs.getString("job_name").trim();
+			job_lavel = rs.getInt("job_lavel");
+			job_type_id = rs.getInt("job_type_id");
+			String job_type_name = rs.getString("job_type_name").trim();
+			JobBean job = new JobBean(job_id, job_name, job_lavel, job_type_id, job_type_name);
+			jobs.add(job);
+		}
+		rs.close();
+		ps.close();
+		return jobs;
+	}
+	public List<JobBean> select_list_for_job_lavel(int job_lavel) throws SQLException {
+		String sql = "select * from [MyGame].[dbo].[job] as a inner join [MyGame].[dbo].[job_type] as b on a.job_type_id = b.job_type_id where a.job_lavel =?";
+		List<JobBean> jobs = new ArrayList<JobBean>();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setObject(1, job_lavel);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			int job_id = rs.getInt("job_id");
+			String job_name = rs.getString("job_name").trim();
+			job_lavel = rs.getInt("job_lavel");
+			int job_type_id = rs.getInt("job_type_id");
+			String job_type_name = rs.getString("job_type_name").trim();
+			JobBean job = new JobBean(job_id, job_name, job_lavel, job_type_id, job_type_name);
+			jobs.add(job);
+		}
+		rs.close();
+		ps.close();
+		return jobs;
+	}
 	public List<JobBean> select_for_job_type_id(int job_type_id) throws SQLException {
 		String sql = "select * from [MyGame].[dbo].[job] as a inner join [MyGame].[dbo].[job_type] as b on a.job_type_id = b.job_type_id where a.job_type_id = ?";
 		List<JobBean> jobs = new ArrayList<JobBean>();
@@ -74,6 +118,8 @@ public class JobDAO {
 			JobBean job = new JobBean(job_id, job_name, job_lavel, job_type_id, job_type_name);
 			jobs.add(job);
 		}
+		rs.close();
+		ps.close();
 		return jobs;
 	}
 }

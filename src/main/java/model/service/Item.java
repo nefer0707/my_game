@@ -21,6 +21,14 @@ public class Item {
 		return myitem;
 	}
 
+	public ItemBean select_random_item() throws Exception {
+		Connection con = MyConnection.getMyConnection();
+		ItemDAO dao =new ItemDAO(con);
+		ItemBean item = dao.select_item_top1();
+		con.close();
+		return item;
+	}
+
 	public List<Item_BagBean> select_item_bag_all(int char_id) throws Exception {
 		Connection con = MyConnection.getMyConnection();
 		Item_BagDAO dao = new Item_BagDAO(con);
@@ -120,13 +128,13 @@ public class Item {
 		con.close();
 		return item;
 	}
-	public void delete_equipment(int item_id,int char_id) throws Exception {
+
+	public void delete_equipment(int item_id, int char_id) throws Exception {
 		Connection con = MyConnection.getMyConnection();
 		EquipmentDAO dao = new EquipmentDAO(con);
 		dao.delete_Equipment(char_id, item_id);
 		con.close();
 	}
-
 
 	public void update_item_bag_count(int item_id, int char_id, int count) throws Exception {
 		Connection con = MyConnection.getMyConnection();
@@ -185,11 +193,13 @@ public class Item {
 			}
 		}
 	}
-	public void use_f(int item_id,int char_id) throws Exception {
+
+	public void use_f(int item_id, int char_id) throws Exception {
 		use_supplies(item_id, char_id);
 		use_armor(item_id, char_id);
 		use_arms(item_id, char_id);
 	}
+
 	public void use_armor(int item_id, int char_id) throws Exception {
 		if (is_armor(item_id)) {
 			Item_BagBean item = select_item_bag(char_id, item_id);
@@ -222,7 +232,7 @@ public class Item {
 		if (myitem == null) {
 			insert_item_bag(item_id, char_id);
 		} else {
-			update_item_bag_count(item_id, char_id, myitem.getCount()+1);
+			update_item_bag_count(item_id, char_id, myitem.getCount() + 1);
 		}
 	}
 
@@ -241,8 +251,8 @@ public class Item {
 		}
 		if (item.getAdd_exp() != 0) {
 			int exp = mychar_q.getExp() - item.getAdd_exp();
-			if(exp <0) {
-				exp=0;
+			if (exp < 0) {
+				exp = 0;
 			}
 			charfun.update_Char_q_exp(char_id, exp);
 		}
@@ -256,8 +266,8 @@ public class Item {
 		}
 		if (item.getAdd_job_exp() != 0) {
 			int job_exp = mychar_q.getJob_exp() - item.getAdd_job_exp();
-			if(job_exp <0) {
-				job_exp=0;
+			if (job_exp < 0) {
+				job_exp = 0;
 			}
 			charfun.update_Char_q_job_exp(char_id, job_exp);
 		}

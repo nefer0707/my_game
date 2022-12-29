@@ -111,10 +111,7 @@ public class Chars {
 	public void update_Char_q_job_lv(int char_id, int job_lv) throws Exception {
 		Connection con = MyConnection.getMyConnection();
 		Chars_qualityDAO dao = new Chars_qualityDAO(con);
-		System.out.println(job_lv);
-		System.out.println(job_lv > 30);
 		if (job_lv > 30) {
-			System.out.println(123);
 			job_lv = 30;
 		}
 		dao.update_Char_q_job_lv(job_lv, char_id);

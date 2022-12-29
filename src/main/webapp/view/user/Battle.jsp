@@ -63,17 +63,21 @@
 				<form method="post" action="/MyGame/Att">
 					<table>
 						<tr>
-							<td><input class="att" type="submit" value="攻擊">
+							<td><input class="att btn btn-outline-secondary"
+								type="submit" value="攻擊">
 						<tr>
-							<td><input class="myskill" type="button" value="技能">
+							<td><input class="myskill btn btn-outline-secondary"
+								type="button" value="技能">
 					</table>
 				</form>
-				<form method="post" action="/MyGame/Quit">
+				<form method="post" action="/MyGame/Backhome">
 					<table>
 						<tr>
-							<td><input class="mybag" type="button" value="背包">
+							<td><input class="mybag btn btn-outline-secondary"
+								type="button" value="背包">
 						<tr>
-							<td><input class="quit" type="submit" value="逃跑">
+							<td><input class="quit btn btn-outline-secondary"
+								type="submit" value="逃跑">
 					</table>
 				</form>
 			</div>
@@ -91,31 +95,36 @@
 										<td>${skill.skill_name}
 										<td>${skill.power}
 										<td>${skill.mp}
-										<td><input type="text" value="${skill.skill_id}"
-											name="skill_id" style="visibility: hidden"><input
-											type="submit" value="使用">
+										<td><a
+											href="/MyGame/MySKill_Battle?skill_id=${skill.skill_id}"><input
+												type="submit" value="使用"></a>
 								</c:forEach>
 					</table>
 				</form>
 			</div>
 			<div class="col">
-				<form method="post" action="/MyGame/MyBag_Battle">
-					<table class="showbag">
-						<tr>
-							<th>物品名稱
-							<th>類型
-							<th>說明
-							<td><c:forEach items="${myitems}" var="item">
+
+				<table class="showbag">
+					<tr>
+						<th>物品名稱 <th>類型
+							
+						<th>說明
+							
+						<td><c:forEach items="${myitems}" var="item">
 									<tr>
 										<td>${item.item_name}
-										<td>${item.item_type_name}
-										<td>${item.caption}
-										<td><input type="text" value="${item.item_id}"
-											name="item_id" style="visibility: hidden"><input
-											type="submit" value="使用">
-								</c:forEach>
-					</table>
-				</form>
+										
+									<td>${item.item_type_name}
+										
+									<td>${item.caption}
+										
+									<td><a href="/MyGame/MyBag_Battle?item_id=${item.item_id}"><input
+											type="submit" value="使用"></a>>
+								
+							</c:forEach>
+					
+				</table>
+			
 			</div>
 		</div>
 	</div>
@@ -130,7 +139,5 @@
 		$(".mybag").click(function() {
 			$(".showbag").show();
 		});
-	</script>
-
-</body>
+	</script></body>
 </html>

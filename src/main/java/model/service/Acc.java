@@ -14,8 +14,6 @@ public class Acc {
 		boolean flag2 = false;
 		dao = new AccountDAO(con);
 		AccountBean acc = dao.selectByAccount(account);
-		System.out.println(account.equals(acc.getAccount()));
-		System.out.println(password.equals(acc.getPassword()));
 		if (account.equals(acc.getAccount())) {
 			flag1 = true;
 		}
@@ -34,7 +32,6 @@ public class Acc {
 		AccountDAO dao = null;
 		dao = new AccountDAO(con);
 		AccountBean acc = dao.selectByAccount(account);
-		System.out.println(acc == null);
 		boolean flag1 = false;
 		boolean flag2 = false;
 		boolean flag3 = false;
