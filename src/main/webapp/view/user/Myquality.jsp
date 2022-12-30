@@ -22,11 +22,11 @@
 		<form method="post" action="/MyGame/Backhome">
 			<input class="btn btn-outline-secondary" type="submit" value="回主畫面">
 		</form>
-		<div class="row">
+		<div class="row mt-2">
 			<div class="col">
 				<div class="row">
 					<div>
-						<img src="${mychar.img}">
+						<img src="${mychar.img}" width="300">
 					</div>
 				</div>
 				<div class="row">

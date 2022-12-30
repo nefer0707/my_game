@@ -22,7 +22,7 @@ public class SkillDAO {
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, job_id);
 		ResultSet rs = ps.executeQuery();
-		if (rs.next()) {
+		while (rs.next()) {
 			int skill_id=rs.getInt("skill_id");
 			String skill_name=rs.getString("skill_name");
 			String caption=rs.getString("caption");
@@ -45,7 +45,7 @@ public class SkillDAO {
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, char_id);
 		ResultSet rs = ps.executeQuery();
-		if (rs.next()) {
+		while (rs.next()) {
 			int skill_id=rs.getInt("skill_id");
 			String skill_name=rs.getString("skill_name");
 			String caption=rs.getString("caption");

@@ -12,6 +12,7 @@ import model.service.BattleAndMonster;
 import model.service.Chars;
 import model.service.Item;
 import model.service.Job;
+import model.service.Skill;
 
 @WebServlet("/MyBag_Battle")
 public class MyBag_Battle extends HttpServlet {
@@ -27,10 +28,12 @@ public class MyBag_Battle extends HttpServlet {
 		Chars charfun = new Chars();
 		Job jobfun = new Job();
 		BattleAndMonster battlefun = new BattleAndMonster();
+		Skill skillfun = new Skill();
 		try {
 			String msg = battlefun.battle_use_item(char_id, item_id);
 			int battle_id = battlefun.select_battle_char_id(char_id).getBattle_id();
 			request.setAttribute("msg", msg);
+			request.setAttribute("myskill", skillfun.select_skillList_by_char_id_charbag(char_id));
 			request.setAttribute("battle_monster", battlefun.select_battle_monster(battle_id));
 			request.setAttribute("myjob", jobfun.selecet_job_for_char_id(char_id));
 			request.setAttribute("myitems", itemfun.select_item_bag_all(char_id));

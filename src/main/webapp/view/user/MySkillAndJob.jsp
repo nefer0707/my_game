@@ -20,12 +20,14 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col">
+			<div class="col mt-2">
 				<div class="row">
-					<img src="${mychar.img}">
+					<div>
+						<img src="${mychar.img}" width="300">
+					</div>
 				</div>
-				<div class="row">
-					<table>
+				<div class="row ">
+					<table class="table border-1">
 						<tr>
 							<td>基本數值/職業
 							<td>
@@ -46,7 +48,7 @@
 			</div>
 			<div class="col">
 				<div class="row">轉職列表</div>
-				<table>
+				<table class="table border-1">
 					<tr>
 						<th>職業名稱
 						<th>職業階級
@@ -64,13 +66,11 @@
 										</form>
 							</c:forEach>
 					<tr>
-						<td>${job_msg}
-						<td>
-						<td>
-						<td>
+						<td colspan="3">${job_msg}
+
 				</table>
 				<div class="row">當前職業可學習技能</div>
-				<table>
+				<table class="table border-1">
 					<tr>
 						<th>技能名稱
 						<th>需要等級
@@ -90,11 +90,8 @@
 										</form>
 							</c:forEach>
 					<tr>
-						<td>${msg}
-						<td>
-						<td>
-						<td>
-						<td>
+						<td colspan="4">${msg}
+		
 				</table>
 				<div class="row">
 					<form method="post" action="/MyGame/Backhome">

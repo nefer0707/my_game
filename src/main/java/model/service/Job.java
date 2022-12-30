@@ -61,7 +61,13 @@ public class Job {
 		Chars_qualityBean mychar_q = charfun.selectChar_qBycharid(char_id);
 		int job_lv = mychar_q.getJob_lv();
 		String job_name = selecet_job_for_job_id(job_id).getJob_name();
-		if (job_lv < 30) {
+		int myjob_id = charfun.select_CharsBycharID(char_id).getJob_id();
+		int job_lavel = selecet_job_for_job_id(myjob_id).getJob_lavel();
+		System.out.println(job_lavel);
+		if (job_lavel == 0 &&job_lv >=10) {
+			charfun.update_Char_job(char_id, job_id);
+			msg = "成功轉職為" + job_name + "。";
+		} else if (job_lv < 30) {
 			msg = "職業等級未滿30，無法轉職。";
 		} else {
 			charfun.update_Char_job(char_id, job_id);

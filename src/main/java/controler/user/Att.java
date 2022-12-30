@@ -32,7 +32,7 @@ public class Att extends HttpServlet {
 			String msg =battlefun.att(char_id);
 			int battle_id = battlefun.select_battle_char_id(char_id).getBattle_id();
 			request.setAttribute("msg", msg);
-			request.setAttribute("myskill", skillfun.select_skillList_by_char_id(char_id));
+			request.setAttribute("myskill", skillfun.select_skillList_by_char_id_charbag(char_id));
 			request.setAttribute("battle_monster", battlefun.select_battle_monster(battle_id));
 			request.setAttribute("myjob", jobfun.selecet_job_for_char_id(char_id));
 			request.setAttribute("myitems", itemfun.select_item_bag_all(char_id));

@@ -41,6 +41,7 @@ public class Chars {
 			dao.insertChars(uid, char_name, img_base64);
 			int char_id = dao.selectBy_char_name(char_name, uid).getChar_id();
 			insert_Char_q(char_id);
+			new Item().insert_item_bag(3, char_id);
 		} else {
 			throw new RuntimeErrorException(null);
 		}

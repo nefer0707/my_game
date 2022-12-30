@@ -14,14 +14,14 @@ public class MonsterDAO {
 	}
 
 	public MonsterBean select_for_Battlemap_id(int battlemap_id) throws SQLException {
-		String sql = "select top 1 * from [MyGame].[dbo].[monster] where battlemap_id = ?";
+		String sql = "select top 1 * from [MyGame].[dbo].[monster] where battlemap_id = ? order by newid()";
 		MonsterBean monster = null;
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, battlemap_id);
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
 			int monster_id = rs.getInt("monster_id");
-			String monster_name = rs.getString("monster_name").trim();
+			String monster_name = rs.getString("monster_name").trim();	
 			String monster_img = rs.getString("monster_img").trim();
 			int lv = rs.getInt("lv");
 			int exp = rs.getInt("exp");

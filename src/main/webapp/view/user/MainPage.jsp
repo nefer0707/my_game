@@ -28,7 +28,7 @@
 							<td>${mychar.char_name}
 						<tr>
 							<td>職業名稱：
-							<td>${mychar.job_id}
+							<td>${myjob.job_name}
 						<tr>
 							<td>等級：
 							<td>${mychar_q.lv}

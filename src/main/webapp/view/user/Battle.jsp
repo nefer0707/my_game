@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col">
 				怪物
-				<table>
+				<table class="table border-1">
 					<tr>
 						<td>怪物名稱
 						<td>${battle_monster.monster_name}
@@ -38,7 +38,7 @@
 			</div>
 			<div class="col">
 				角色
-				<table>
+				<table class="table border-1">
 					<tr>
 						<td>角色名稱
 						<td>${mychar.char_name}
@@ -84,7 +84,7 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<table class="showskill">
+				<table class="showskill table border-1">
 					<tr>
 						<th>技能名稱
 						<th>威力
@@ -105,7 +105,7 @@
 			</div>
 			<div class="col">
 
-				<table class="showbag">
+				<table class="showbag table border-1">
 					<tr>
 						<th>物品名稱
 						<th>類型

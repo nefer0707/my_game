@@ -27,7 +27,7 @@ public class Myquality extends HttpServlet {
 		Job jobfun = new Job();
 		Skill skillfun = new Skill();
 		try {
-			request.setAttribute("myskill", skillfun.select_skillList_by_char_id(char_id));
+			request.setAttribute("myskill", skillfun.select_skillList_by_char_id_charbag(char_id));
 			request.setAttribute("myjob", jobfun.selecet_job_for_char_id(char_id));
 			request.setAttribute("myitems", itemfun.select_item_bag_all(char_id));
 			request.setAttribute("myequipments", itemfun.select_equipment_all(char_id));

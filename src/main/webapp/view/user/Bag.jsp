@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="row">
-					<table>
+					<table class="table border-1">
 						<tr>
 							<td>HP
 							<td>${mychar_q.hp}/${mychar_q.max_hp}
@@ -66,7 +66,7 @@
 			</div>
 			<div class="col">
 				<div class="row">
-					<table>
+					<table class="table border-1">
 						<th>裝備名稱
 						<th>類型
 						<th><c:forEach items="${myequipments}" var="equipment">
@@ -84,7 +84,7 @@
 
 				</div>
 				<div class="row">
-					<table>
+					<table class="table border-1">
 						<th>物品名稱
 						<th>類型
 						<th>說明

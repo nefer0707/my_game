@@ -40,6 +40,7 @@ public class Skill {
 		List<SkillBean> skills = select_skillList_by_job_id(mychar.getJob_id());
 		return skills;
 	}
+	
 
 	public SkillBean select_skill_by_skill_id(int skill_id) throws Exception {
 		Connection con = MyConnection.getMyConnection();

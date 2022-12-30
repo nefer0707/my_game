@@ -23,7 +23,7 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<table>
+				<table class="table border-1">
 					<tr>
 						<td>HP
 						<td>${mychar_q.hp}/${mychar_q.max_hp}
