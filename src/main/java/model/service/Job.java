@@ -64,13 +64,17 @@ public class Job {
 		int myjob_id = charfun.select_CharsBycharID(char_id).getJob_id();
 		int job_lavel = selecet_job_for_job_id(myjob_id).getJob_lavel();
 		System.out.println(job_lavel);
-		if (job_lavel == 0 &&job_lv >=10) {
+		if (job_lavel == 0 && job_lv < 10) {
+			msg = "職業等級未滿10，無法轉職。";
+		} else if (job_lavel == 0 && job_lv >= 10) {
 			charfun.update_Char_job(char_id, job_id);
+			charfun.update_Char_q_job_lv(char_id, 1);
 			msg = "成功轉職為" + job_name + "。";
 		} else if (job_lv < 30) {
 			msg = "職業等級未滿30，無法轉職。";
 		} else {
 			charfun.update_Char_job(char_id, job_id);
+			charfun.update_Char_q_job_lv(char_id, 1);
 			msg = "成功轉職為" + job_name + "。";
 		}
 		return msg;

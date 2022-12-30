@@ -21,6 +21,7 @@
 			<div class='col'>
 				<form method="post" action="/MyGame/Register">
 					<table>
+					<tr><th>會員註冊
 						<tr>
 							<td>帳號：
 							<td><input type="text" name="account">

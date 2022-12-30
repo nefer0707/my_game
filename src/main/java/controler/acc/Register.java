@@ -20,6 +20,8 @@ public class Register extends HttpServlet {
 		String text="";
 		try {
 			new Acc().insert_account(account, password);
+			text="註冊成功。";
+			request.setAttribute("text", text);
 			request.getRequestDispatcher("/view/acc/Login.jsp").forward(request, response);
 		} catch (Exception e) {
 			text="註冊失敗，請重新輸入。";

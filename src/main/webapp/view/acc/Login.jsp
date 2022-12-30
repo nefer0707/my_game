@@ -21,12 +21,13 @@
 			<div class='col'>
 				<form method="post" action="/MyGame/Login">
 					<table>
+					<tr><th>會員登入
 						<tr>
 							<td>帳號：
 							<td><input type="text" name="account" onfocus="LoginMsg()">
 						<tr>
 							<td>密碼：
-							<td><input type="text" name="password">
+							<td><input type="password" name="password">
 						<tr>
 							<td>
 							<td><span id="login_span">${requestScope.text}</span>

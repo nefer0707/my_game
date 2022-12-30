@@ -34,7 +34,12 @@ public class Chars {
 		Connection con = MyConnection.getMyConnection();
 		CharsDAO dao = new CharsDAO(con);
 		String img_base64 = "data:image/jpeg;base64,";
+		
 		if (dao.selectAllbyuid(uid).size() < 3) {
+			if(char_name.length()==0) {
+				con.close();
+				throw new RuntimeErrorException(null);
+			}
 //			@SuppressWarnings("resource")
 //			byte[] bytes = new BufferedInputStream(new FileInputStream(img)).readAllBytes();
 			img_base64 += Base64.getEncoder().encodeToString(b);
@@ -43,6 +48,7 @@ public class Chars {
 			insert_Char_q(char_id);
 			new Item().insert_item_bag(3, char_id);
 		} else {
+			con.close();
 			throw new RuntimeErrorException(null);
 		}
 		con.close();
@@ -104,7 +110,7 @@ public class Chars {
 			int max_hp = mychar_q.getMax_hp();
 			int max_mp = mychar_q.getMax_mp();
 			update_Char_q_hp(char_id, max_hp);
-			update_Char_q_max_mp(char_id, max_mp);
+			update_Char_q_mp(char_id, max_mp);
 		}
 		con.close();
 	}

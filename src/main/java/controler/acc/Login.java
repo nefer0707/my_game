@@ -31,8 +31,8 @@ public class Login extends HttpServlet {
 		try {
 			AccountBean acc = accfun.login_SelectAccount(account, password);
 			List<CharsBean> mychars = charsfun.select_CharsByUID(acc.getUid());
-			session.setAttribute("uid", acc.getUid());
 			if (accfun.isUser(account, password)) {
+				session.setAttribute("uid", acc.getUid());
 				request.setAttribute("mychars", mychars);
 				request.getRequestDispatcher("/view/acc/ChooseChar.jsp").forward(request, response);
 			} else if (accfun.isManager(account, password)) {	

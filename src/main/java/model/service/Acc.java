@@ -14,16 +14,20 @@ public class Acc {
 		boolean flag2 = false;
 		dao = new AccountDAO(con);
 		AccountBean acc = dao.selectByAccount(account);
-		if (account.equals(acc.getAccount())) {
-			flag1 = true;
+		try {
+			if (account.equals(acc.getAccount())) {
+				flag1 = true;
+			}
+			if (password.equals(acc.getPassword())) {
+				flag2 = true;
+			}
+			if (flag1 && flag2) {
+				con.close();
+				return acc;
+			}
+		} finally {
+			con.close();
 		}
-		if (password.equals(acc.getPassword())) {
-			flag2 = true;
-		}
-		if (flag1 && flag2) {
-			return acc;
-		}
-		con.close();
 		return null;
 	}
 
@@ -47,6 +51,7 @@ public class Acc {
 		if (flag1 && flag2 && flag3) {
 			dao.insertAccount(account, password);
 		} else {
+			con.close();
 			throw new RuntimeErrorException(null);
 		}
 		con.close();
@@ -56,7 +61,7 @@ public class Acc {
 		boolean flag = false;
 		AccountBean acc = login_SelectAccount(account, password);
 		if (acc != null && acc.getLv() == 1) {
-			flag =true;	
+			flag = true;
 		}
 		return flag;
 	}
@@ -65,7 +70,7 @@ public class Acc {
 		boolean flag = false;
 		AccountBean acc = login_SelectAccount(account, password);
 		if (acc != null && acc.getLv() == 2) {
-			flag =true;	
+			flag = true;
 		}
 		return flag;
 	}
